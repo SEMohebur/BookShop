@@ -13,7 +13,7 @@ const Books = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3000/books")
+    fetch("https://book-shop-server-delta.vercel.app/books")
       .then((res) => res.json())
       .then((data) => {
         setBooks(data);
@@ -65,10 +65,13 @@ const Books = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "Books | My Book Shop";
+  }, []);
   return (
     <div className=" w-11/12 mx-auto py-8">
       <div>
-        <h2 className=" text-3xl font-bold text-gray-800 text-center underline mb-4">
+        <h2 className=" text-3xl font-bold text-gray-800 text-center  mb-4">
           Books
         </h2>
         {/* search filtering  */}

@@ -14,7 +14,7 @@ const BookList = () => {
 
   //   get all book
   useEffect(() => {
-    fetch("http://localhost:3000/books")
+    fetch("https://book-shop-server-delta.vercel.app/books")
       .then((res) => res.json())
       .then((book) => setBooks(book))
       .catch((err) => console.log(err.message));
@@ -59,7 +59,7 @@ const BookList = () => {
       isOnSale,
       inStock,
     };
-    fetch(`http://localhost:3000/books/${book._id}`, {
+    fetch(`https://book-shop-server-delta.vercel.app/books/${book._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const BookList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // DELETE request only after confirmation
-        fetch(`http://localhost:3000/books/${_id}`, {
+        fetch(`https://book-shop-server-delta.vercel.app/books/${_id}`, {
           method: "DELETE",
         })
           .then((res) => {
@@ -140,6 +140,10 @@ const BookList = () => {
       }
     });
   };
+
+  useEffect(() => {
+    document.title = "Book List | My Book Shop";
+  }, []);
 
   return (
     <div className=" w-11/12 mx-auto py-8">
@@ -188,7 +192,7 @@ const BookList = () => {
             </button>
           </form>
 
-          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 underline">
+          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 ">
             {" "}
             UPDATE
           </h2>

@@ -8,7 +8,7 @@ const Details = () => {
   const [book, setBook] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/books/${id}`)
+    fetch(`https://book-shop-server-delta.vercel.app/books/${id}`)
       .then((res) => res.json())
       .then((book) => {
         setBook(book);
@@ -36,6 +36,10 @@ const Details = () => {
       confirmButtonText: "OK",
     });
   };
+
+  useEffect(() => {
+    document.title = "Details | My Book Shop";
+  }, []);
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <Link

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../Component/Navbar";
 import Footer from "../Component/Footer";
 import { useRouteError } from "react-router";
 
 const ErrorPage = () => {
   const error = useRouteError();
+
+  useEffect(() => {
+    document.title = "Error | My Book Shop";
+  }, []);
   return (
     <div>
       <Navbar></Navbar>

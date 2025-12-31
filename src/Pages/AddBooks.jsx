@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
@@ -45,7 +45,7 @@ const AddBooks = () => {
       isOnSale,
       inStock,
     };
-    fetch("http://localhost:3000/books", {
+    fetch("https://book-shop-server-delta.vercel.app/books", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,11 +74,14 @@ const AddBooks = () => {
         });
       });
   };
+  useEffect(() => {
+    document.title = "Add Books | My Book Shop";
+  }, []);
   return (
     <div className="w-11/12 mx-auto ">
       <div className=" p-8 ">
         <div className=" p-4 shadow rounded-2xl">
-          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 underline">
+          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 ">
             {" "}
             Add New Book{" "}
           </h2>

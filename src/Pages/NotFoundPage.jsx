@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../Component/Navbar";
 import Footer from "../Component/Footer";
 import { Link } from "react-router";
 import notFoundPage from "../assets/App-Error.png";
 
 const NotFoundPage = () => {
+  useEffect(() => {
+    document.title = "Not Found 404 | My Book Shop";
+  }, []);
   return (
     <div>
       <Navbar></Navbar>

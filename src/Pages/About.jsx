@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const fadeUp = {
@@ -7,6 +7,9 @@ const fadeUp = {
 };
 
 const About = () => {
+  useEffect(() => {
+    document.title = "About | My Book Shop";
+  }, []);
   return (
     <div className="max-w-7xl mx-auto px-6 py-14">
       {/* Page Header */}

@@ -45,7 +45,7 @@ const Home = () => {
   // get recent 6 book
 
   useEffect(() => {
-    fetch("http://localhost:3000/recentBooks")
+    fetch("https://book-shop-server-delta.vercel.app/recentBooks")
       .then((res) => res.json())
       .then((data) => {
         setrecentBooks(data);
@@ -53,7 +53,10 @@ const Home = () => {
       .catch((err) => console.log(err.message));
   }, []);
 
-  console.log(recentBoos);
+  // console.log(recentBoos);
+  useEffect(() => {
+    document.title = "Home | My Book Shop";
+  }, []);
   return (
     <div>
       <Slider {...settings}>
