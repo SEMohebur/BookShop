@@ -9,6 +9,8 @@ const Books = () => {
   const [filterBooks, setFilterBook] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [onFocused, setOnFocused] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     fetch("http://localhost:3000/books")
@@ -75,6 +77,8 @@ const Books = () => {
             <input
               type="text"
               onChange={onChangeInpute}
+              onFocus={() => setOnFocused(true)}
+              onBlur={() => setOnFocused(false)}
               placeholder="Search by title, author, or publisher"
               className="border border-gray-300 p-2 rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
@@ -85,13 +89,16 @@ const Books = () => {
               Search
             </button>
           </div>
-          {value && (
+          {onFocused && value && (
             <div className=" dropdown h-20 border border-gray-300 rounded-md px-1 w-full overflow-y-auto ">
               {books?.map((book, i) => {
                 return (
                   <ul key={i} className=" dropdown-row">
                     <li
-                      onClick={() => onSearch(book.title)}
+                      onMouseDown={() => {
+                        onSearch(book.title);
+                        setOnFocused(false);
+                      }}
                       className=" text-gray-500 hover:bg-indigo-500 hover:text-white duration-200 rounded"
                     >
                       {book.title}

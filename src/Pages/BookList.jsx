@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const BookList = () => {
@@ -105,7 +104,42 @@ const BookList = () => {
     setLanguage(filterdBook.language || "");
     setFormat(filterdBook.format || "");
   };
-  console.log(book);
+  // console.log(book);
+
+  // delete
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // DELETE request only after confirmation
+        fetch(`http://localhost:3000/books/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error("Failed to delete");
+            return res.json();
+          })
+          .then(() => {
+            // Optional: remove the deleted book from state
+            setBooks((prevBooks) =>
+              prevBooks.filter((book) => book._id !== _id)
+            );
+
+            Swal.fire("Deleted!", "The book has been deleted.", "success");
+          })
+          .catch((err) => {
+            Swal.fire("Error!", err.message, "error");
+          });
+      }
+    });
+  };
 
   return (
     <div className=" w-11/12 mx-auto py-8">
@@ -133,7 +167,10 @@ const BookList = () => {
                 Update
               </button>
 
-              <button className=" text-gray-700 px-3 py-1 bg-red-200 rounded shadow-sm transition duration-300 cursor-pointer hover:shadow-2xl">
+              <button
+                onClick={() => handleDelete(book._id)}
+                className=" text-gray-700 px-3 py-1 bg-red-200 rounded shadow-sm transition duration-300 cursor-pointer hover:shadow-2xl"
+              >
                 Delete
               </button>
             </div>

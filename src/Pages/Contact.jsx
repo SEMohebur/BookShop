@@ -1,96 +1,117 @@
 import React from "react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const Contact = () => {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-6 py-16">
       {/* Page Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 text-gray-800">Contact Us</h1>
-        <p className="text-gray-600">
-          Have questions or feedback? Fill out the form below and we will get
-          back to you as soon as possible.
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={fadeUp}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-14"
+      >
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+          Contact Us
+        </h1>
+        <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          Have a question, suggestion, or feedback? Fill out the form below and
+          our team will get back to you shortly.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Contact Form */}
-      <form className="bg-white shadow-md rounded-xl p-8 space-y-6">
-        {/* Name */}
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Your Name"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          />
-        </div>
+      {/* Contact Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="bg-white rounded-2xl shadow-xl p-8 md:p-10"
+      >
+        <form className="space-y-6">
+          {/* Name */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              required
+            />
+          </div>
 
-        {/* Email */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="your.email@example.com"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          />
-        </div>
+          {/* Email */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="john@example.com"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              required
+            />
+          </div>
 
-        {/* Subject */}
-        <div>
-          <label
-            htmlFor="subject"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Subject
-          </label>
-          <input
-            type="text"
-            id="subject"
-            placeholder="Subject of your message"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
+          {/* Subject */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Subject
+            </label>
+            <input
+              type="text"
+              placeholder="How can we help you?"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+          </div>
 
-        {/* Message */}
-        <div>
-          <label
-            htmlFor="message"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Message
-          </label>
-          <textarea
-            id="message"
-            rows="5"
-            placeholder="Type your message here..."
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          ></textarea>
-        </div>
+          {/* Message */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Message
+            </label>
+            <textarea
+              rows="5"
+              placeholder="Write your message here..."
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
+              required
+            ></textarea>
+          </div>
 
-        {/* Submit Button */}
-        <div className="text-center">
-          <button
-            type="submit"
-            className="bg-indigo-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-600 transition"
+          {/* Submit */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="text-center pt-4"
           >
-            Send Message
-          </button>
-        </div>
-      </form>
+            <button
+              type="submit"
+              className="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-indigo-700 transition shadow-md"
+            >
+              Send Message
+            </button>
+          </motion.div>
+        </form>
+      </motion.div>
+
+      {/* Footer Text */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="text-center text-gray-500 text-sm mt-8"
+      >
+        We usually respond within 24 hours.
+      </motion.p>
     </div>
   );
 };
