@@ -6,9 +6,11 @@ import BookCard from "../Component/BookCard";
 import { IoBookSharp } from "react-icons/io5";
 import { MdMonetizationOn } from "react-icons/md";
 import { MdOutlineSecurity } from "react-icons/md";
-import { FaStar } from "react-icons/fa6";
+import { FaCartShopping, FaStar } from "react-icons/fa6";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { FaBook, FaMoneyCheckAlt } from "react-icons/fa";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 const Home = () => {
   const [recentBoos, setrecentBooks] = useState(null);
@@ -67,33 +69,35 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <Slider {...settings}>
-        {bannerData.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="relative card card-side overflow-hidden  shadow-md"
-            >
-              <figure>
-                <img
-                  className="w-full h-96 object-cover"
-                  src={item.img}
-                  alt="Album"
-                />
-              </figure>
-              <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white p-4 transition-all duration-300 hover:bg-black/60">
-                <h2 className="text-6xl font-bold drop-shadow-lg">
-                  {item.name}
-                </h2>
-                <p className="font-thin mt-2 ">{item.description}</p>
+      <div className=" p-10">
+        <Slider {...settings}>
+          {bannerData.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="relative card card-side overflow-hidden  shadow-md"
+              >
+                <figure>
+                  <img
+                    className="w-full h-96 object-cover"
+                    src={item.img}
+                    alt="Album"
+                  />
+                </figure>
+                <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white p-4 transition-all duration-300 hover:bg-black/60">
+                  <h2 className="text-6xl font-bold drop-shadow-lg">
+                    {item.name}
+                  </h2>
+                  <p className="font-thin mt-2 ">{item.description}</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </Slider>
+            );
+          })}
+        </Slider>
+      </div>
       {/* recent Books  */}
       <section className=" w-11/12 mx-auto mt-8 pb-3">
-        <h3 className=" font-bold text-center text-3xl text-gray-800 mb-5">
+        <h3 className=" font-bold text-center text-3xl text-base-400 mb-5">
           Recent Books
         </h3>
         <div className=" grid sm:grid-cols-2 md:grid-cols-3  gap-3 justify-center">
@@ -176,15 +180,15 @@ const Home = () => {
       </section>
 
       {/* CTA  */}
-      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 py-16">
+      <section className=" text-base-400 py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Text Content */}
-            <div className="text-white max-w-xl">
+            <div className="  max-w-xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Discover Your Next Favorite Book
               </h2>
-              <p className="text-indigo-100 mb-6">
+              <p className="  mb-6">
                 Explore a wide range of programming, academic, and best-selling
                 books at unbeatable prices. Start your learning journey today
                 with our trusted book collection.
@@ -193,13 +197,13 @@ const Home = () => {
               <div className="flex gap-4">
                 <Link
                   to="/books"
-                  className="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
+                  className=" border  font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition"
                 >
                   Browse Books
                 </Link>
                 <Link
                   to="/books"
-                  className="border border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-indigo-600 transition"
+                  className="border border-gray-300  px-6 py-3 rounded-lg hover:bg-white hover:text-indigo-600 transition"
                 >
                   Shop Now
                 </Link>
@@ -209,7 +213,7 @@ const Home = () => {
             {/* Image / Card */}
             <div className="bg-white rounded-xl shadow-lg p-6 w-full md:w-96">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                📘 Best Seller of the Month
+                Best Seller of the Month
               </h3>
               <p className="text-gray-600 text-sm mb-4">
                 Upgrade your skills with top-rated programming books recommended
@@ -245,18 +249,22 @@ const Home = () => {
           {/* Steps */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4">📚</div>
+              <div className="text-4xl mb-4 text-gray-500 flex justify-center">
+                <FaBook />
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 Browse Books
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-500 text-sm">
                 Explore our wide collection of books by category, author, or
                 popularity.
               </p>
             </div>
 
             <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4">🛒</div>
+              <div className="text-4xl mb-4  text-gray-500 flex justify-center">
+                <FaCartShopping />
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 Add to Cart
               </h3>
@@ -267,7 +275,9 @@ const Home = () => {
             </div>
 
             <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4">💳</div>
+              <div className="text-4xl mb-4  text-gray-500 flex justify-center">
+                <FaMoneyCheckAlt />
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 Place Order
               </h3>
@@ -278,7 +288,9 @@ const Home = () => {
             </div>
 
             <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4">🚚</div>
+              <div className="text-4xl mb-4 text-gray-500 flex justify-center">
+                <CiDeliveryTruck />
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 Fast Delivery
               </h3>

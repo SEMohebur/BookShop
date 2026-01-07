@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="  navbar bg-base-100 shadow-sm">
+    <div className="  navbar  text-base-700 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -75,8 +75,8 @@ const Navbar = () => {
                 tabIndex={0}
                 className={`${
                   userdb?.role == "admin"
-                    ? "text-gray-700 hover:text-green-700 w-full duration-300"
-                    : "text-gray-300"
+                    ? " text-base-400 hover:text-green-700 w-full duration-300"
+                    : " text-gray-400"
                 }`}
                 disabled={userdb?.role !== "admin"}
               >
@@ -120,7 +120,7 @@ const Navbar = () => {
               alt=""
             />
           </Link>
-          <h3 className=" font-bold text-gray-700">Book Shop</h3>
+          <h3 className=" font-bold text-base-400">Book Shop</h3>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -144,8 +144,8 @@ const Navbar = () => {
               tabIndex={0}
               className={`${
                 userdb?.role == "admin"
-                  ? "text-gray-700 hover:text-green-700 duration-300"
-                  : "text-gray-300"
+                  ? " text-base-400 hover:text-green-700 duration-300"
+                  : "text-gray-500"
               }`}
               disabled={userdb?.role !== "admin"}
             >

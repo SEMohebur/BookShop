@@ -11,7 +11,7 @@ const Contact = () => {
     document.title = "Contact | My Book Shop";
   }, []);
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16">
+    <div className="max-w-4xl mx-auto px-6 py-16 text-base-400">
       {/* Page Header */}
       <motion.div
         initial="hidden"
@@ -20,10 +20,10 @@ const Contact = () => {
         transition={{ duration: 0.6 }}
         className="text-center mb-14"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-base-400">
           Contact Us
         </h1>
-        <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        <p className=" max-w-2xl mx-auto leading-relaxed">
           Have a question, suggestion, or feedback? Fill out the form below and
           our team will get back to you shortly.
         </p>
@@ -40,13 +40,13 @@ const Contact = () => {
         <form className="space-y-6">
           {/* Name */}
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-600 font-medium mb-2">
               Full Name
             </label>
             <input
               type="text"
               placeholder="John Doe"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition  text-gray-700"
               required
             />
           </div>
@@ -59,7 +59,7 @@ const Contact = () => {
             <input
               type="email"
               placeholder="john@example.com"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
               required
             />
           </div>
@@ -72,7 +72,7 @@ const Contact = () => {
             <input
               type="text"
               placeholder="How can we help you?"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border text-gray-700 border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             />
           </div>
 
@@ -84,7 +84,7 @@ const Contact = () => {
             <textarea
               rows="5"
               placeholder="Write your message here..."
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
+              className="w-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
               required
             ></textarea>
           </div>

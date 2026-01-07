@@ -144,7 +144,7 @@ const Register = () => {
         <div className="card-body">
           <form onSubmit={handleRegister}>
             <fieldset className="fieldset">
-              <label className="label">Name</label>
+              <label className="label text-gray-600">Name</label>
               <input
                 name="name"
                 type="text"
@@ -152,7 +152,7 @@ const Register = () => {
                 placeholder="Name"
                 required
               />
-              <label className="label">Photo</label>
+              <label className="label text-gray-600">Photo</label>
               <input
                 name="photo"
                 type="text"
@@ -160,7 +160,7 @@ const Register = () => {
                 placeholder="Photo Url"
                 required
               />
-              <label className="label">Email</label>
+              <label className="label text-gray-600">Email</label>
               <input
                 name="email"
                 type="email"
@@ -168,7 +168,7 @@ const Register = () => {
                 placeholder="Email"
                 required
               />
-              <label className="label">Password</label>
+              <label className="label text-gray-600">Password</label>
               <div className=" relative">
                 <div className=" flex relative">
                   <input
@@ -226,9 +226,9 @@ const Register = () => {
                 </svg>
                 Login with Google
               </button>
-              <p className=" text-center">
+              <p className=" text-center text-gray-600">
                 Don’t have an account?
-                <Link to="/login" className=" text-red-500">
+                <Link to="/login" className=" text-red-500 ms-1">
                   Login Now
                 </Link>
               </p>

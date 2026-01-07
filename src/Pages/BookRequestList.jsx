@@ -3,12 +3,14 @@ import Swal from "sweetalert2";
 
 const BookRequestList = () => {
   const [allRequestBook, setAllRequestBook] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://book-shop-server-delta.vercel.app/requestAllBook")
       .then((res) => res.json())
       .then((data) => {
         setAllRequestBook(data);
+        setLoading(false);
       })
       .catch((err) => {
         Swal.fire({
@@ -51,8 +53,14 @@ const BookRequestList = () => {
     <div className="max-w-5xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Book Request List</h2>
 
-      {allRequestBook?.length === 0 && (
-        <p className="text-center text-gray-500">No requests found</p>
+      {loading ? (
+        <div className=" flex items-center justify-center pt-10">
+          <span className="loading loading-ring loading-xl"></span>
+        </div>
+      ) : (
+        allRequestBook?.length === 0 && (
+          <p className="text-center text-gray-500">No requests found</p>
+        )
       )}
 
       <ul className="space-y-3">
@@ -70,12 +78,12 @@ const BookRequestList = () => {
 
             {/* Info */}
             <div className="flex-1">
-              <h3 className="font-semibold">{book?.title}</h3>
+              <h3 className="font-semibold text-gray-600">{book?.title}</h3>
               <p className="text-sm text-gray-500">{book?.author}</p>
               <p className="text-xs text-gray-400 ">
                 Requested by: {book?.userEmail}
               </p>
-              <p className=" text-xs">
+              <p className=" text-xs text-gray-400">
                 Requested Date : {new Date(book.requestedDate).toLocaleString()}
               </p>
 

@@ -185,7 +185,7 @@ const Details = () => {
       {/* Description */}
       <div className="mt-12">
         <h2 className="text-2xl font-semibold mb-4">Book Description</h2>
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+        <p className=" text-base-400 leading-relaxed whitespace-pre-line">
           {book?.description}
         </p>
       </div>

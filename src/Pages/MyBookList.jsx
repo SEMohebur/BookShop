@@ -149,7 +149,9 @@ const MyBookList = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="font-bold text-lg mb-1">{book.title}</h3>
+                <h3 className="font-bold text-gray-700 text-lg mb-1">
+                  {book.title}
+                </h3>
                 <p className="text-gray-600 text-sm mb-2">{book.author}</p>
                 <p className="text-green-600 font-semibold mb-2">
                   ৳{book.discountPrice}
@@ -168,7 +170,7 @@ const MyBookList = () => {
                 >
                   {book?.status}
                 </p>
-                <p className=" text-[10px] mb-2">
+                <p className=" text-[10px] text-gray-600 mb-2">
                   {book?.approvedAt
                     ? `Approved at: ${new Date(
                         book.approvedAt
@@ -191,7 +193,7 @@ const MyBookList = () => {
                     Read Book
                   </Link>
 
-                  <p className=" text-[10px]">
+                  <p className=" text-[10px] text-gray-600">
                     {diffDays > 0
                       ? `Remaining days: ${diffDays}`
                       : "Book expired / Disabled"}

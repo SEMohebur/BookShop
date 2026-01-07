@@ -83,7 +83,7 @@ const AddBooks = () => {
     <div className="w-11/12 mx-auto ">
       <div className=" p-8 ">
         <div className=" p-4 shadow rounded-2xl">
-          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 ">
+          <h2 className=" text-center font-bold text-3xl text-base-400 mb-4 ">
             {" "}
             Add New Book{" "}
           </h2>

@@ -93,7 +93,7 @@ const Login = () => {
         <div className="card-body">
           <form onSubmit={handleLogin}>
             <fieldset className="fieldset">
-              <label className="label">Email</label>
+              <label className="label text-gray-600">Email</label>
               <input
                 type="email"
                 className="input w-full"
@@ -101,7 +101,7 @@ const Login = () => {
                 name="email"
                 required
               />
-              <label className="label">Password</label>
+              <label className="label text-gray-600">Password</label>
               <div className=" relative">
                 <div className=" flex relative">
                   <input
@@ -162,9 +162,9 @@ const Login = () => {
                 </svg>
                 Login with Google
               </button>
-              <p className=" text-center">
+              <p className=" text-center text-gray-700">
                 Don’t have an account?
-                <Link to="/register" className=" text-red-500">
+                <Link to="/register" className=" text-red-500 ms-1">
                   Register Now
                 </Link>
               </p>

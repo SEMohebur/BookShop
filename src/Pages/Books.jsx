@@ -78,7 +78,7 @@ const Books = () => {
   return (
     <div className=" w-11/12 mx-auto py-8">
       <div>
-        <h2 className=" text-3xl font-bold text-gray-800 text-center  mb-4">
+        <h2 className=" text-3xl font-bold text-base-400 text-center  mb-4">
           Books
         </h2>
         {/* search filtering  */}
@@ -123,7 +123,7 @@ const Books = () => {
         <div className="w-full sm:w-64 mb-4">
           <label
             htmlFor="category"
-            className="block text-gray-700 font-medium mb-2"
+            className="block text-base-400 font-medium mb-2"
           >
             Select Category
           </label>
@@ -149,9 +149,21 @@ const Books = () => {
           </select>
         </div>
         {/* loading  */}
-        {loading && (
+        {loading ? (
           <div className="flex flex-col items-center gap-4">
             <span className="loading loading-ring loading-xl"></span>{" "}
+          </div>
+        ) : (
+          <div>
+            {filterBooks.length < 1 && (
+              <div className=" flex justify-center items-center">
+                <img
+                  className=" h-64"
+                  src="https://unsplash-assets.imgix.net/empty-states/photos.png?auto=format&fit=crop&q=60"
+                  alt=""
+                />
+              </div>
+            )}
           </div>
         )}
         {/* book card  */}
@@ -159,17 +171,6 @@ const Books = () => {
           {filterBooks?.map((book, i) => {
             return <BookCard book={book} key={i} />;
           })}
-        </div>
-        <div>
-          {filterBooks.length < 1 && (
-            <div className=" flex justify-center items-center">
-              <img
-                className=" h-64"
-                src="https://unsplash-assets.imgix.net/empty-states/photos.png?auto=format&fit=crop&q=60"
-                alt=""
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>

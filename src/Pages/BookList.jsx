@@ -11,13 +11,17 @@ const BookList = () => {
   const [isOnSale, setIsOnSale] = useState(false);
   const [language, setLanguage] = useState("");
   const [format, setFormat] = useState("");
+  const [loading, setLoading] = useState(true);
   // const [loading, setLoading] = useState(true);
 
   //   get all book
   useEffect(() => {
     fetch("https://book-shop-server-delta.vercel.app/books")
       .then((res) => res.json())
-      .then((book) => setBooks(book))
+      .then((book) => {
+        setBooks(book);
+        setLoading(false);
+      })
       .catch((err) => {
         Swal.fire({
           title: "Error!",
@@ -163,6 +167,11 @@ const BookList = () => {
     <div className=" w-11/12 mx-auto py-8">
       <h3 className=" font-bold text-3xl text-center pb-5">Book List </h3>
       <ul className="space-y-3">
+        {loading && (
+          <div className=" flex justify-center">
+            <span className="loading loading-ring loading-xl"></span>
+          </div>
+        )}
         {books?.map((book) => (
           <li
             key={book._id}
@@ -206,7 +215,7 @@ const BookList = () => {
             </button>
           </form>
 
-          <h2 className=" text-center font-bold text-3xl text-gray-800 mb-4 ">
+          <h2 className=" text-center font-bold text-3xl  text-base-400 mb-4 ">
             {" "}
             UPDATE
           </h2>

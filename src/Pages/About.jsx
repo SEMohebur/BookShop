@@ -20,7 +20,7 @@ const About = () => {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-5 text-gray-800">
+        <h1 className="text-4xl md:text-5xl font-bold mb-5 text-base-400">
           About Online Book Shop
         </h1>
         <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -84,11 +84,11 @@ const About = () => {
         transition={{ duration: 0.6 }}
         className="mt-16"
       >
-        <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl p-10 text-center shadow-xl">
+        <section className=" text-base-400  rounded-2xl p-10 text-center shadow-xl">
           <h3 className="text-3xl font-semibold mb-4">
             Why Choose Online Book Shop?
           </h3>
-          <p className="max-w-3xl mx-auto leading-relaxed text-indigo-100">
+          <p className="max-w-3xl mx-auto leading-relaxed  text-base-400">
             Whether you are a student, teacher, or book enthusiast, Online Book
             Shop gives you a powerful, responsive, and easy-to-use platform to
             explore and manage books with confidence.

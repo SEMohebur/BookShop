@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const BookCard = ({ book }) => {
   // console.log(book);
   return (
-    <div className="max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transform hover:-translate-y-2 hover:scale-102 transition-all duration-300">
+    <div className=" w-auto bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transform hover:-translate-y-2 hover:scale-102 transition-all duration-300">
       <img
         src={book.coverImage}
         alt={book.title}
