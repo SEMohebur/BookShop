@@ -11,6 +11,7 @@ import { Link } from "react-router";
 
 const Home = () => {
   const [recentBoos, setrecentBooks] = useState(null);
+
   // slider
   const bannerData = [
     {
@@ -84,7 +85,7 @@ const Home = () => {
         })}
       </Slider>
       {/* recent Books  */}
-      <section className=" w-11/12 mx-auto mt-8">
+      <section className=" w-11/12 mx-auto mt-8 pb-3">
         <h3 className=" font-bold text-center text-3xl text-gray-800 mb-5">
           Recent Books
         </h3>

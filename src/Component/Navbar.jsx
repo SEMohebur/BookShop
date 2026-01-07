@@ -1,7 +1,36 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../Provider/AuthContext";
+import Swal from "sweetalert2";
+import { FaShoppingBag } from "react-icons/fa";
 
 const Navbar = () => {
+  const { userInfo, logOut, userdb, setUserDb, addtoCartCounter } =
+    use(AuthContext);
+
+  const LogOut = () => {
+    logOut()
+      .then(() => {
+        console.log("User logged out successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Logged Out",
+          text: "You have successfully logged out.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          title: "Logout Failed",
+          text: err.message,
+        });
+      });
+    setUserDb(null);
+  };
+
   return (
     <div className="  navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -40,9 +69,49 @@ const Navbar = () => {
             <li className=" hover:text-green-700 duration-300 cursor-pointer">
               <Link to="/contact">Contact</Link>
             </li>
+            {/* admin  */}
+            <li className="dropdown ">
+              <button
+                tabIndex={0}
+                className={`${
+                  userdb?.role == "admin"
+                    ? "text-gray-700 hover:text-green-700 w-full duration-300"
+                    : "text-gray-300"
+                }`}
+                disabled={userdb?.role !== "admin"}
+              >
+                Admin
+              </button>
+
+              {userInfo?.email && userdb?.role === "admin" && (
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/bookList" className="hover:text-green-700">
+                      Book List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/addBook" className="hover:text-green-700">
+                      Add Book
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/bookRequestList"
+                      className="hover:text-green-700"
+                    >
+                      Book Request List
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
           </ul>
         </div>
-        <div className=" flex items-center gap-2">
+        <div className=" flex items-center gap-2 ml-3">
           <Link to="/">
             {" "}
             <img
@@ -56,44 +125,118 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-semibold">
-          <li className=" hover:text-green-700 duration-300 cursor-pointer">
+          <li className="hover:text-green-700 duration-300 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
-          <li className=" hover:text-green-700 duration-300 cursor-pointer">
+          <li className="hover:text-green-700 duration-300 cursor-pointer">
             <Link to="/books">Books</Link>
           </li>
-
-          <li className=" hover:text-green-700 duration-300 cursor-pointer">
+          <li className="hover:text-green-700 duration-300 cursor-pointer">
             <Link to="/about">About</Link>
           </li>
-          <li className=" hover:text-green-700 duration-300 cursor-pointer">
+          <li className="hover:text-green-700 duration-300 cursor-pointer">
             <Link to="/contact">Contact</Link>
           </li>
-        </ul>
-      </div>
-      <div className="navbar-end me-3">
-        <button
-          className="btn"
-          popoverTarget="popover-1"
-          style={{ anchorName: "--anchor-1" } /* as React.CSSProperties */}
-        >
-          Admin
-        </button>
 
-        <ul
-          className="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
-          popover="auto"
-          id="popover-1"
-          style={{ positionAnchor: "--anchor-1" } /* as React.CSSProperties */}
-        >
-          <li>
-            <Link to="/bookList">Book List</Link>
-          </li>
-          <li className=" hover:text-green-700 duration-300 cursor-pointer">
-            <Link to="/addBook">Add Book</Link>
+          {/* admin  */}
+          <li className="dropdown ">
+            <button
+              tabIndex={0}
+              className={`${
+                userdb?.role == "admin"
+                  ? "text-gray-700 hover:text-green-700 duration-300"
+                  : "text-gray-300"
+              }`}
+              disabled={userdb?.role !== "admin"}
+            >
+              Admin
+            </button>
+
+            {userInfo?.email && userdb?.role === "admin" && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link to="/bookList" className="hover:text-green-700">
+                    Book List
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/addBook" className="hover:text-green-700">
+                    Add Book
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/bookRequestList" className="hover:text-green-700">
+                    Book Request List
+                  </Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </div>
+
+      {/* login register  */}
+      <ul className="navbar-end me-3 flex gap-3">
+        <Link to="/myBookList" className="relative inline-block">
+          <FaShoppingBag className="text-2xl" />
+
+          {addtoCartCounter > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full">
+              {addtoCartCounter}
+            </span>
+          )}
+        </Link>
+        {userInfo ? (
+          // user img dropdown
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src={userInfo?.photoURL}
+                  alt={userInfo?.displayName || "User"}
+                />
+              </div>
+            </div>
+
+            {/* Dropdown menu */}
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 gap-2"
+            >
+              <li className="font-semibold">
+                <span>{userInfo?.displayName || "User"}</span>
+              </li>
+              <li className="text-gray-500 text-sm">{userInfo?.email}</li>
+              <li>
+                <button
+                  onClick={LogOut}
+                  className="btn w-full text-left px-2 py-1 hover:bg-red-100 rounded"
+                >
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <>
+            {" "}
+            <li>
+              <Link className=" btn btn-sm" to="/login">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link to="/register" className=" btn btn-sm">
+                Register
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
     </div>
   );
 };

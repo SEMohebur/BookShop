@@ -11,6 +11,7 @@ const BookList = () => {
   const [isOnSale, setIsOnSale] = useState(false);
   const [language, setLanguage] = useState("");
   const [format, setFormat] = useState("");
+  const [loading, setLoading] = useState(true);
 
   //   get all book
   useEffect(() => {
@@ -67,8 +68,7 @@ const BookList = () => {
       body: JSON.stringify(updateBook),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         Swal.fire({
           title: "Success!",
           text: "Book updated successfully",
@@ -76,7 +76,11 @@ const BookList = () => {
           draggable: true,
         }).then(() => {
           e.target.reset();
-          window.location.reload();
+          setBooks((prevBooks) =>
+            prevBooks.map((b) =>
+              b._id === book._id ? { ...b, ...updateBook } : b
+            )
+          );
         });
       })
       .catch((err) => {
@@ -144,6 +148,8 @@ const BookList = () => {
   useEffect(() => {
     document.title = "Book List | My Book Shop";
   }, []);
+
+  // if (!book) return <p>Loading</p>;
 
   return (
     <div className=" w-11/12 mx-auto py-8">

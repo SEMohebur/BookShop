@@ -143,10 +143,8 @@ const Books = () => {
         </div>
         {/* loading  */}
         {loading && (
-          <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-            <div className="flex flex-col items-center gap-4">
-              <span className="loading loading-ring loading-xl"></span>{" "}
-            </div>
+          <div className="flex flex-col items-center gap-4">
+            <span className="loading loading-ring loading-xl"></span>{" "}
           </div>
         )}
         {/* book card  */}

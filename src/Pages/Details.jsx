@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthContext";
 
 const Details = () => {
+  const { userInfo, setAddToCartCounter } = use(AuthContext);
   const { id } = useParams();
   const [book, setBook] = useState(null);
 
@@ -17,25 +19,54 @@ const Details = () => {
         console.log(err.message);
       });
   }, []);
-  console.log(book);
 
-  const addToCart = () => {
-    Swal.fire({
-      title: "Added to Cart!",
-      text: "This book has been added to your cart.",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
+  const addToCartPost = () => {
+    // id ta bad diye dilam karon id thakle ekti data 2nd time add hoyna
+    const { _id, ...rest } = book;
+
+    const payload = {
+      ...rest,
+      userEmail: userInfo?.email,
+      status: "pending",
+      requestedDate: new Date(),
+    };
+
+    fetch("http://localhost:3000/addToCart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          title: "Added to Cart!",
+          text: "This book has been added to your cart.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        setAddToCartCounter((prev) => prev + 1);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          title: "Failed to Add",
+          text: err.message,
+        });
+      });
   };
 
-  const addToWishlist = () => {
-    Swal.fire({
-      title: "Added to Wishlist!",
-      text: "This book has been added to your wishlist.",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
-  };
+  // const addToWishlist = () => {
+  //   Swal.fire({
+  //     title: "Added to Wishlist!",
+  //     text: "This book has been added to your wishlist.",
+  //     icon: "success",
+  //     confirmButtonText: "OK",
+  //   });
+  // };
 
   useEffect(() => {
     document.title = "Details | My Book Shop";
@@ -119,17 +150,17 @@ const Details = () => {
           {/* Buttons */}
           <div className="flex gap-4">
             <button
-              onClick={addToCart}
+              onClick={addToCartPost}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition"
             >
               Add to Cart
             </button>
-            <button
+            {/* <button
               onClick={addToWishlist}
               className="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100 transition"
             >
               Wishlist
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
