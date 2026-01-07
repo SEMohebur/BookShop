@@ -2,6 +2,54 @@
 
 🔗 **Live Site:** https://shiny-bunny-96d852.netlify.app/
 
+🔐 Demo Login Credentials
+
+For testing purposes, you can use the following demo accounts:
+
+👑 Admin Role
+
+Email: mdmohebur11@gmail.com
+
+Password: Mdmohebur11
+
+Admin Access Includes:
+
+Add new books
+
+Edit existing books
+
+Delete books
+
+Manage shop inventory
+
+👤 User Role
+
+Email: choyon11@gmail.com
+
+Password: Choyon11
+
+User Access Includes:
+
+Browse books
+
+View book details
+
+Add books to cart
+
+Track reading days
+
+Receive notifications
+
+🆕 New User Registration
+
+Anyone can create a new user account using:
+
+Email & Password registration
+
+Google Sign-In
+
+Newly created accounts will have User role access by default
+
 A modern **MERN-based Online Book Shop** web application built with **React**, **Firebase Authentication**, **Tailwind CSS**, and a **Node.js + MongoDB backend**.  
 This project allows users to browse books, manage carts, authenticate securely, and track reading progress. It is designed as a real-world learning project for frontend and MERN stack developers.
 
