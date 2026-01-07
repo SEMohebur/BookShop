@@ -3,6 +3,7 @@ import { AuthContext } from "../Provider/AuthContext";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Books from "./Books";
+import { Link } from "react-router";
 
 const MyBookList = () => {
   const { userInfo, setAddToCartCounter } = use(AuthContext);
@@ -42,6 +43,54 @@ const MyBookList = () => {
       .catch((err) => console.log(err.message));
   };
 
+  // book notifications
+  useEffect(() => {
+    if (!myBooks || myBooks.length === 0) return;
+
+    myBooks.forEach((book) => {
+      if (!book?.approvedAt || !book?.readingDay) return;
+
+      const buyDate = new Date(book.approvedAt);
+      const allowedDays = Number(book.readingDay);
+      const expiryDate = new Date(buyDate);
+      expiryDate.setDate(expiryDate.getDate() + allowedDays);
+
+      const today = new Date();
+      const diffTime = expiryDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays <= 3 && diffDays > 1) {
+        Swal.fire({
+          title: "Book Reminder!",
+          text: `Bhaiya, apnar book er ar ${diffDays} din somoy ache.`,
+          icon: "info",
+          timer: 4000,
+          showConfirmButton: false,
+        });
+      }
+
+      if (diffDays === 1) {
+        Swal.fire({
+          title: "Book Almost Expired!",
+          text: `Bhaiya, apnar book er ar 1 din somoy baki!`,
+          icon: "warning",
+          timer: 4000,
+          showConfirmButton: false,
+        });
+      }
+
+      if (diffDays <= 0) {
+        Swal.fire({
+          title: "Book Expired!",
+          text: "Apnar book er somoy shesh hoye geche.",
+          icon: "error",
+          timer: 4000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  }, [myBooks]);
+
   if (loading)
     return (
       <div className=" flex items-center justify-center pt-10">
@@ -59,65 +108,91 @@ const MyBookList = () => {
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {myBooks.map((book) => (
-          <div
-            key={book._id}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition relative"
-          >
-            <img
-              src={book.coverImage}
-              alt={book.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="font-bold text-lg mb-1">{book.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">{book.author}</p>
-              <p className="text-green-600 font-semibold mb-2">
-                ৳{book.discountPrice}
-                <span className="line-through text-gray-400 ml-2">
-                  ৳{book.price}
-                </span>
-              </p>
-              <p
-                className={`text-sm font-medium mb-2 ${
-                  book.status === "approved"
-                    ? "text-green-600"
-                    : book.status === "pending"
-                    ? "text-yellow-500"
-                    : "text-red-300"
-                }`}
-              >
-                {book?.status}
-              </p>
-              <p className=" text-[10px] mb-2">
-                {book?.approvedAt
-                  ? `Approved at: ${new Date(book.approvedAt).toLocaleString()}`
-                  : book?.rejectAt
-                  ? `Rejected at: ${new Date(book.rejectAt).toLocaleString()}`
-                  : ""}
-              </p>
+        {myBooks.map((book) => {
+          /// book romining date count
+          const buyDate = new Date(book?.approvedAt);
+          const allowedDays = Number(book?.readingDay);
+
+          const expiryDate = new Date(buyDate);
+          expiryDate.setDate(buyDate?.getDate() + allowedDays);
+
+          // কত দিন বাকি
+          const today = new Date(); // আজকের date
+          const diffTime = expiryDate - today;
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          return (
+            <div
+              key={book._id}
+              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition relative"
+            >
+              <img
+                src={book.coverImage}
+                alt={book.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="font-bold text-lg mb-1">{book.title}</h3>
+                <p className="text-gray-600 text-sm mb-2">{book.author}</p>
+                <p className="text-green-600 font-semibold mb-2">
+                  ৳{book.discountPrice}
+                  <span className="line-through text-gray-400 ml-2">
+                    ৳{book.price}
+                  </span>
+                </p>
+                <p
+                  className={`text-sm font-medium mb-2 ${
+                    book.status === "approved"
+                      ? "text-green-600"
+                      : book.status === "pending"
+                      ? "text-yellow-500"
+                      : "text-red-300"
+                  }`}
+                >
+                  {book?.status}
+                </p>
+                <p className=" text-[10px] mb-2">
+                  {book?.approvedAt
+                    ? `Approved at: ${new Date(
+                        book.approvedAt
+                      ).toLocaleString()}`
+                    : book?.rejectAt
+                    ? `Rejected at: ${new Date(book.rejectAt).toLocaleString()}`
+                    : ""}
+                </p>
+
+                <div className=" flex justify-between items-center">
+                  <Link
+                    to="https://www.w3schools.com/"
+                    className={`px-4 py-2 rounded ${
+                      book.status === "approved" && diffDays > 0
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
+                    disabled={book.status !== "approved" || diffDays <= 0}
+                  >
+                    Read Book
+                  </Link>
+
+                  <p className=" text-[10px]">
+                    {diffDays > 0
+                      ? `Remaining days: ${diffDays}`
+                      : "Book expired / Disabled"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Delete button */}
               <button
-                className={`px-4 py-2 rounded ${
-                  book.status === "approved"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                }`}
-                disabled={book.status !== "approved"}
+                onClick={() => bookDelete(book._id)}
+                className="absolute top-2 right-2 bg-red-400 text-white p-2 rounded-full hover:bg-red-700 transition"
+                title="Remove from cart"
               >
-                Read Book
+                <FaTrashAlt />
               </button>
             </div>
-
-            {/* Delete button */}
-            <button
-              onClick={() => bookDelete(book._id)}
-              className="absolute top-2 right-2 bg-red-400 text-white p-2 rounded-full hover:bg-red-700 transition"
-              title="Remove from cart"
-            >
-              <FaTrashAlt />
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

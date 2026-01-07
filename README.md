@@ -6,6 +6,7 @@ Project Overview
 The Online Book Shop Application is a user-friendly web application built using React.js. Users can easily browse books, search, filter, and view detailed information about each book, including availability and pricing. This project is educational and serves as a practical case study for frontend developers to understand real-world application development.
 
 🛠️ Key Features
+
 1. Home Page
 
 Displays new and popular books.
@@ -66,22 +67,17 @@ Clone the repository:
 
 git clone <repository-url>
 
-
 Navigate to the project directory:
 
 cd book-shop-app
-
 
 Install dependencies:
 
 npm install
 
-
 Start the application:
 
 npm start
-
-
 
 🧰 Technology Stack
 
@@ -104,3 +100,58 @@ CRUD Operations: Fully functional add, edit, delete books.
 Clean and Reusable Components: Each component is modular and reusable.
 
 Professional UI Design: User-friendly interface with smooth interactions.
+
+//////-------------------------------------------------new
+Online Book Shop
+
+A modern MERN-based Online Book Shop web application built with React, Firebase Authentication, Tailwind CSS, and a Node.js backend. Users can browse books, register/login (including Google sign-in), add books to their cart, and track their reading days.
+
+Features
+
+Home Page:
+
+Responsive slider showcasing key features.
+
+Recently added books section.
+
+Highlights “Why Choose Us” and “How It Works” sections.
+
+Authentication:
+
+Email/password registration & login.
+
+Google Sign-In integration.
+
+Password validation (uppercase, lowercase, min 6 chars).
+
+User Features:
+
+Add books to cart and manage them.
+
+Track remaining reading days.
+
+SweetAlert2 notifications for reminders, expirations, and actions.
+
+Admin / Backend:
+
+Users are stored in backend database (localhost:3000/user).
+
+Cart items fetched and managed per user.
+
+UI/UX:
+
+Built with Tailwind CSS & DaisyUI for responsive design.
+
+React Slick for carousel/slider functionality.
+
+Clean and modern interface for browsing and reading books.
+
+Tech Stack
+
+Frontend: React, React Router, Tailwind CSS, DaisyUI, Framer Motion, React Icons
+
+Backend: Node.js, Express, JSON Server (for mock DB)
+
+Authentication: Firebase Auth (Email/Password & Google)
+
+Other Libraries: SweetAlert2, React Slick

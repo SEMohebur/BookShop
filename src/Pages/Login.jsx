@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthContext";
 
 const Login = () => {
-  const { login } = use(AuthContext);
+  const { login, googleSignIn, setUserInfo } = use(AuthContext);
   const [paswordShow, setPassworShow] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -41,6 +41,48 @@ const Login = () => {
       });
   };
 
+  // Google Sign-In function
+  const signInWithGoogle = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        const newUser = {
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
+
+        // Save user in your database if needed
+        fetch("http://localhost:3000/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => console.log("Database error:", err));
+
+        setUserInfo(user);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: `Welcome back, ${user.displayName}!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          title: "Google Sign-In Failed",
+          text: err.message,
+        });
+      });
+  };
   return (
     <div className="hero p-5">
       <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
@@ -86,6 +128,7 @@ const Login = () => {
               <button className="btn btn-primary mt-4">Login Now</button>
               {/* Google */}
               <button
+                onClick={signInWithGoogle}
                 type="button"
                 className="btn bg-white text-black border-[#e5e5e5]"
               >

@@ -8,7 +8,8 @@ import Swal from "sweetalert2";
 // import Swal from "sweetalert2";
 
 const Register = () => {
-  const { registration, updateUser, setUserInfo, loading } = use(AuthContext);
+  const { registration, updateUser, setUserInfo, loading, googleSignIn } =
+    use(AuthContext);
   const [paswordShow, setPassworShow] = useState(false);
   const [error, setError] = useState(null);
 
@@ -85,6 +86,49 @@ const Register = () => {
       });
   };
 
+  // Google Sign-In function
+  const signInWithGoogle = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        const newUser = {
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
+
+        // Save user in your database if needed
+        fetch("http://localhost:3000/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => console.log("Database error:", err));
+
+        setUserInfo(user);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: `Welcome back, ${user.displayName}!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          title: "Google Sign-In Failed",
+          text: err.message,
+        });
+      });
+  };
+
   if (loading) {
     return (
       <div className=" flex justify-center items-center h-48">
@@ -151,6 +195,7 @@ const Register = () => {
               {/* Google */}
               <button
                 type="button"
+                onClick={signInWithGoogle}
                 className="btn bg-white text-black border-[#e5e5e5]"
               >
                 <svg

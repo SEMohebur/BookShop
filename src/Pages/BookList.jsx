@@ -40,6 +40,7 @@ const BookList = () => {
     const coverImage = e.target.coverImage.value;
     const createdAt = e.target.createdAt.value;
     const description = e.target.description.value;
+    const readingDay = e.target.readingDays.value;
 
     const updateBook = {
       title,
@@ -59,6 +60,7 @@ const BookList = () => {
       description,
       isOnSale,
       inStock,
+      readingDay,
     };
     fetch(`https://book-shop-server-delta.vercel.app/books/${book._id}`, {
       method: "PATCH",
@@ -372,6 +374,21 @@ const BookList = () => {
                 name="pages"
                 defaultValue={book?.pages || ""}
                 placeholder="Enter total pages"
+                className="input input-bordered w-full"
+                min="1"
+                required
+              />
+            </div>
+
+            {/* "readingDays": 3 */}
+            {/* readingDays */}
+            <div className="flex flex-col gap-1">
+              <label className="label font-semibold">Reading Days</label>
+              <input
+                type="number"
+                name="readingDays"
+                defaultValue={book?.readingDay || ""}
+                placeholder="Enter Reading Days"
                 className="input input-bordered w-full"
                 min="1"
                 required

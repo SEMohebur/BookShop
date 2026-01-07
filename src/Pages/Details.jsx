@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthContext";
@@ -8,6 +8,7 @@ const Details = () => {
   const { userInfo, setAddToCartCounter } = use(AuthContext);
   const { id } = useParams();
   const [book, setBook] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://book-shop-server-delta.vercel.app/books/${id}`)
@@ -31,32 +32,43 @@ const Details = () => {
       requestedDate: new Date(),
     };
 
-    fetch("http://localhost:3000/addToCart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Swal.fire({
-          title: "Added to Cart!",
-          text: "This book has been added to your cart.",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-        setAddToCartCounter((prev) => prev + 1);
+    if (userInfo?.email) {
+      fetch("http://localhost:3000/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       })
-      .catch((err) => {
-        console.log(err.message);
-        Swal.fire({
-          icon: "error",
-          title: "Failed to Add",
-          text: err.message,
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          Swal.fire({
+            title: "Added to Cart!",
+            text: "This book has been added to your cart.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+          setAddToCartCounter((prev) => prev + 1);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          Swal.fire({
+            icon: "error",
+            title: "Failed to Add",
+            text: err.message,
+          });
         });
+    } else {
+      navigate("/login");
+      Swal.fire({
+        icon: "info",
+        title: "Login Required",
+        text: "You need to login to add items to the cart.",
+        timer: 3000,
+        showConfirmButton: false,
       });
+    }
   };
 
   // const addToWishlist = () => {
@@ -144,6 +156,9 @@ const Details = () => {
             </p>
             <p>
               <strong>Publisher:</strong> {book?.publisher}
+            </p>
+            <p>
+              <strong>Reading days:</strong> {book?.readingDay}
             </p>
           </div>
 
