@@ -134,7 +134,7 @@ SweetAlert2 notifications for reminders, expirations, and actions.
 
 Admin / Backend:
 
-Users are stored in backend database (localhost:3000/user).
+Users are stored in backend database
 
 Cart items fetched and managed per user.
 
