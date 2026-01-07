@@ -55,8 +55,8 @@ const AddBooks = () => {
       body: JSON.stringify(newBook),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        // console.log(data);
         Swal.fire({
           title: "Success!",
           text: "Book added successfully",
@@ -68,7 +68,7 @@ const AddBooks = () => {
         });
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
         Swal.fire({
           title: "Error!",
           text: err.message,

@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const provider = new GoogleAuthProvider();
 
@@ -59,23 +60,39 @@ const AuthProvider = ({ children }) => {
   //db single user get by current user email
   useEffect(() => {
     if (userInfo?.email) {
-      fetch(`http://localhost:3000/user?email=${userInfo.email}`)
+      fetch(
+        `https://book-shop-server-delta.vercel.app/user?email=${userInfo.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setUserDb(data);
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) =>
+          Swal.fire({
+            title: "Error!",
+            text: err.message,
+            icon: "error",
+          })
+        );
     }
   }, [userInfo]);
 
   useEffect(() => {
     if (userInfo?.email) {
-      fetch(`http://localhost:3000/getAllCartItem?email=${userInfo.email}`)
+      fetch(
+        `https://book-shop-server-delta.vercel.app/getAllCartItem?email=${userInfo.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setAddToCartCounter(data.length);
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) =>
+          Swal.fire({
+            title: "Error!",
+            text: err.message,
+            icon: "error",
+          })
+        );
     }
   }, [userInfo]);
 

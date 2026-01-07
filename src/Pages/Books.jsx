@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "../Component/BookCard";
+import Swal from "sweetalert2";
 
 const Books = () => {
   const [books, setBooks] = useState(null);
@@ -20,7 +21,13 @@ const Books = () => {
         setFilterBook(data);
         setLoading(false);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        });
+      });
   }, []);
 
   // console.log(books);

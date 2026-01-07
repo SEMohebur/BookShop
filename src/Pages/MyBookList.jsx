@@ -12,24 +12,36 @@ const MyBookList = () => {
 
   useEffect(() => {
     if (userInfo?.email) {
-      fetch(`http://localhost:3000/getAllCartItem?email=${userInfo.email}`)
+      fetch(
+        `https://book-shop-server-delta.vercel.app/getAllCartItem?email=${userInfo.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setMyBooks(data);
           setLoading(false);
           setAddToCartCounter(data.length);
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) =>
+          Swal.fire({
+            title: "Error!",
+            text: err.message,
+            icon: "error",
+          })
+        );
+    } else {
+      setLoading(false);
     }
   }, [userInfo]);
 
   const bookDelete = (id) => {
-    fetch(`http://localhost:3000/myBook/${id}?email=${userInfo.email}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://book-shop-server-delta.vercel.app/myBook/${id}?email=${userInfo.email}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.deletedCount > 0) {
           Swal.fire({
             icon: "success",
@@ -40,7 +52,13 @@ const MyBookList = () => {
         setMyBooks((prev) => prev.filter((book) => book._id !== id));
         setAddToCartCounter((prev) => prev - 1);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) =>
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        })
+      );
   };
 
   // book notifications
@@ -98,7 +116,6 @@ const MyBookList = () => {
       </div>
     );
 
-  console.log(myBooks);
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold mb-8">My Books</h2>

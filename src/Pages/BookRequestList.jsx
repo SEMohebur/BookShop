@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const BookRequestList = () => {
   const [allRequestBook, setAllRequestBook] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/requestAllBook")
+    fetch("https://book-shop-server-delta.vercel.app/requestAllBook")
       .then((res) => res.json())
       .then((data) => {
         setAllRequestBook(data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        });
+      });
   }, []);
 
   const handleApprove = (id) => {
-    fetch(`http://localhost:3000/approveBook/${id}`, {
+    fetch(`https://book-shop-server-delta.vercel.app/approveBook/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -27,7 +34,7 @@ const BookRequestList = () => {
   };
 
   const handleReject = (id) => {
-    fetch(`http://localhost:3000/rejectBook/${id}`, {
+    fetch(`https://book-shop-server-delta.vercel.app/rejectBook/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())

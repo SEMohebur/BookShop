@@ -20,7 +20,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     login(email, password)
-      .then((res) => {
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Login Successful ",
@@ -28,11 +28,10 @@ const Login = () => {
           timer: 1500,
           showConfirmButton: false,
         });
-        console.log(res.user);
+        // console.log(res.user);
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
         Swal.fire({
           icon: "error",
           title: "Login Failed",
@@ -53,16 +52,19 @@ const Login = () => {
         };
 
         // Save user in your database if needed
-        fetch("http://localhost:3000/user", {
+        fetch("https://book-shop-server-delta.vercel.app/user", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newUser),
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => console.log("Database error:", err));
+          .catch((err) =>
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "error",
+            })
+          );
 
         setUserInfo(user);
         Swal.fire({
@@ -75,7 +77,6 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
         Swal.fire({
           icon: "error",
           title: "Google Sign-In Failed",

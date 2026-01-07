@@ -8,6 +8,7 @@ import { MdMonetizationOn } from "react-icons/md";
 import { MdOutlineSecurity } from "react-icons/md";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const [recentBoos, setrecentBooks] = useState(null);
@@ -51,7 +52,13 @@ const Home = () => {
       .then((data) => {
         setrecentBooks(data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) =>
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        })
+      );
   }, []);
 
   // console.log(recentBoos);

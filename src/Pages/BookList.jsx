@@ -11,14 +11,20 @@ const BookList = () => {
   const [isOnSale, setIsOnSale] = useState(false);
   const [language, setLanguage] = useState("");
   const [format, setFormat] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   //   get all book
   useEffect(() => {
     fetch("https://book-shop-server-delta.vercel.app/books")
       .then((res) => res.json())
       .then((book) => setBooks(book))
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        });
+      });
   }, []);
 
   //   console.log(books);
@@ -86,7 +92,7 @@ const BookList = () => {
         });
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
         Swal.fire({
           title: "Error!",
           text: err.message,
@@ -98,7 +104,7 @@ const BookList = () => {
 
   const updateBtn = (_id) => {
     document.getElementById("my_modal_3").showModal();
-    console.log(_id);
+    // console.log(_id);
 
     const filterdBook = books.find((book) => {
       return book._id === _id;

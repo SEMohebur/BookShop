@@ -45,7 +45,7 @@ const Register = () => {
     registration(email, password)
       .then((res) => {
         //create user in the database
-        fetch("http://localhost:3000/user", {
+        fetch("https://book-shop-server-delta.vercel.app/user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -53,8 +53,7 @@ const Register = () => {
           body: JSON.stringify(newUser),
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+          .then(() => {
             Swal.fire({
               icon: "success",
               title: "Registration Successful ",
@@ -63,8 +62,7 @@ const Register = () => {
               showConfirmButton: false,
             });
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
             Swal.fire({
               icon: "error",
               title: "Database Error",
@@ -77,7 +75,6 @@ const Register = () => {
         });
       })
       .catch((err) => {
-        console.log(err.message);
         Swal.fire({
           icon: "error",
           title: "Registration Failed ",
@@ -98,16 +95,19 @@ const Register = () => {
         };
 
         // Save user in your database if needed
-        fetch("http://localhost:3000/user", {
+        fetch("https://book-shop-server-delta.vercel.app/user", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newUser),
         })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((err) => console.log("Database error:", err));
+          .catch((err) =>
+            Swal.fire({
+              title: "Error!",
+              text: err.message,
+              icon: "error",
+            })
+          );
 
         setUserInfo(user);
         Swal.fire({
@@ -120,7 +120,6 @@ const Register = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
         Swal.fire({
           icon: "error",
           title: "Google Sign-In Failed",

@@ -17,7 +17,11 @@ const Details = () => {
         setBook(book);
       })
       .catch((err) => {
-        console.log(err.message);
+        Swal.fire({
+          title: "Error!",
+          text: err.message,
+          icon: "error",
+        });
       });
   }, []);
 
@@ -33,7 +37,7 @@ const Details = () => {
     };
 
     if (userInfo?.email) {
-      fetch("http://localhost:3000/addToCart", {
+      fetch("https://book-shop-server-delta.vercel.app/addToCart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +45,7 @@ const Details = () => {
         body: JSON.stringify(payload),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           Swal.fire({
             title: "Added to Cart!",
             text: "This book has been added to your cart.",
@@ -52,7 +55,6 @@ const Details = () => {
           setAddToCartCounter((prev) => prev + 1);
         })
         .catch((err) => {
-          console.log(err.message);
           Swal.fire({
             icon: "error",
             title: "Failed to Add",
