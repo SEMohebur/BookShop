@@ -22,11 +22,6 @@ Delete books
 
 Manage shop inventory
 
-👤 User Role
-
-Email: choyon11@gmail.com
-
-Password: Choyon11
 
 User Access Includes:
 
