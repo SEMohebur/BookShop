@@ -8,9 +8,9 @@ For testing purposes, you can use the following demo accounts:
 
 👑 Admin Role
 
-Email: mdmohebur11@gmail.com
+Email: admin1@gmail.com
 
-Password: Mdmohebur11
+Password: Admin1
 
 Admin Access Includes:
 
