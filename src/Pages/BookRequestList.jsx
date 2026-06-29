@@ -27,10 +27,17 @@ const BookRequestList = () => {
     })
       .then((res) => res.json())
       .then(() => {
+        Swal.fire({
+          title: "Approved!",
+          text: "The book request has been approved.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
         setAllRequestBook((prev) =>
           prev.map((book) => {
             return book._id === id ? { ...book, status: "approved" } : book;
-          })
+          }),
         );
       });
   };
@@ -41,88 +48,130 @@ const BookRequestList = () => {
     })
       .then((res) => res.json())
       .then(() => {
+        Swal.fire({
+          title: "Rejected!",
+          text: "The book request has been rejected.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
         setAllRequestBook((prev) =>
           prev.map((book) => {
             return book._id === id ? { ...book, status: "reject" } : book;
-          })
+          }),
         );
       });
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Book Request List</h2>
-
-      {loading ? (
-        <div className=" flex items-center justify-center pt-10">
-          <span className="loading loading-ring loading-xl"></span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 px-4 py-10 flex flex-col items-center">
+      <div className="w-full max-w-5xl rounded-3xl border border-white/20 bg-white/10  p-8">
+        {/* Heading */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-2xl shadow-xl">
+            📨
+          </div>
+          <h2 className="text-4xl font-bold text-white mt-4">
+            Book Request List
+          </h2>
+          <p className="text-slate-300 mt-2">
+            Review, approve, or decline custom book requests submitted by users.
+          </p>
         </div>
-      ) : (
-        allRequestBook?.length === 0 && (
-          <p className="text-center text-gray-500">No requests found</p>
-        )
-      )}
 
-      <ul className="space-y-3">
-        {allRequestBook?.map((book) => (
-          <li
-            key={book?._id}
-            className="flex items-center gap-4 p-3 shadow rounded-md bg-white hover:shadow-lg transition"
-          >
-            {/* Image */}
-            <img
-              src={book?.coverImage}
-              alt={book?.title}
-              className="h-16 w-16 object-cover rounded"
-            />
+        {/* Loading Spinner */}
+        {loading ? (
+          <div className="flex justify-center my-10">
+            <span className="loading loading-ring loading-lg text-cyan-400"></span>
+          </div>
+        ) : (
+          allRequestBook?.length === 0 && (
+            <p className="text-center text-slate-400 my-10 text-lg">
+              No requests found
+            </p>
+          )
+        )}
 
-            {/* Info */}
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-600">{book?.title}</h3>
-              <p className="text-sm text-gray-500">{book?.author}</p>
-              <p className="text-xs text-gray-400 ">
-                Requested by: {book?.userEmail}
-              </p>
-              <p className=" text-xs text-gray-400">
-                Requested Date : {new Date(book.requestedDate).toLocaleString()}
-              </p>
+        {/* Request List Items */}
+        <ul className="space-y-4">
+          {allRequestBook?.map((book) => (
+            <li
+              key={book?._id}
+              className="flex flex-col sm:flex-row items-center gap-4 p-4 border border-white/10 bg-white/5 rounded-2xl hover:bg-white/10 transition duration-300"
+            >
+              {/* Image */}
+              <img
+                src={
+                  book?.coverImage ||
+                  "https://images.unsplash.com/photo-1543002588-bfa74002ed7e"
+                }
+                alt={book?.title}
+                className="h-20 w-20 object-cover rounded-xl border border-white/20 shadow-md"
+              />
 
-              {/* Status badge */}
-              <span
-                className={`inline-block mt-1 px-2 py-0.5 text-xs rounded-full
-                  ${
-                    book?.status === "pending"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : book?.status === "approved"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-              >
-                {book?.status}
-              </span>
-            </div>
+              {/* Info */}
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="font-bold text-xl text-white">{book?.title}</h3>
+                <p className="text-cyan-400 text-sm font-medium mt-0.5">
+                  {book?.author}
+                </p>
 
-            {/* Actions */}
-            <div className="flex flex-col md:flex-row gap-2">
-              <button
-                disabled={book?.status !== "pending"}
-                onClick={() => handleApprove(book?._id)}
-                className="px-3 py-1 bg-green-200 text-gray-700 rounded hover:shadow disabled:opacity-40 cursor-pointer"
-              >
-                Approve
-              </button>
+                <div className="mt-2 space-y-0.5">
+                  <p className="text-slate-400 text-xs">
+                    <span className="text-slate-500 font-semibold">
+                      Requested by:
+                    </span>{" "}
+                    {book?.userEmail}
+                  </p>
+                  <p className="text-slate-400 text-xs">
+                    <span className="text-slate-500 font-semibold">
+                      Requested Date:
+                    </span>{" "}
+                    {book?.requestedDate
+                      ? new Date(book.requestedDate).toLocaleString()
+                      : "N/A"}
+                  </p>
+                </div>
 
-              <button
-                disabled={book?.status !== "pending"}
-                onClick={() => handleReject(book._id)}
-                className="px-3 py-1 bg-red-200 text-gray-700 rounded hover:shadow disabled:opacity-40 cursor-pointer"
-              >
-                Reject
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+                {/* Status badge */}
+                <div className="mt-3">
+                  <span
+                    className={`inline-block px-3 py-1 text-xs font-semibold rounded-full capitalize shadow-sm
+                      ${
+                        book?.status === "pending"
+                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                          : book?.status === "approved"
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                            : "bg-rose-500/20 text-rose-400 border border-rose-500/30"
+                      }`}
+                  >
+                    • {book?.status}
+                  </span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex flex-row sm:flex-col gap-3 mt-4 sm:mt-0 w-full sm:w-auto justify-center">
+                <button
+                  disabled={book?.status !== "pending"}
+                  onClick={() => handleApprove(book?._id)}
+                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-bold text-slate-900 bg-emerald-400 hover:bg-emerald-300 disabled:bg-slate-800 disabled:text-slate-600 disabled:border-white/5 border border-transparent rounded-xl shadow-lg transition duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105"
+                >
+                  Approve
+                </button>
+
+                <button
+                  disabled={book?.status !== "pending"}
+                  onClick={() => handleReject(book._id)}
+                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-bold text-white bg-rose-600 hover:bg-rose-500 disabled:bg-slate-800 disabled:text-slate-600 disabled:border-white/5 border border-transparent rounded-xl shadow-lg transition duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105"
+                >
+                  Reject
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

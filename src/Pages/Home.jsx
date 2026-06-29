@@ -59,7 +59,7 @@ const Home = () => {
           title: "Error!",
           text: err.message,
           icon: "error",
-        })
+        }),
       );
   }, []);
 
@@ -69,233 +69,358 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <div className=" p-10">
-        <Slider {...settings}>
-          {bannerData.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="relative card card-side overflow-hidden  shadow-md"
-              >
-                <figure>
-                  <img
-                    className="w-full h-96 object-cover"
-                    src={item.img}
-                    alt="Album"
-                  />
-                </figure>
-                <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white p-4 transition-all duration-300 hover:bg-black/60">
-                  <h2 className="text-6xl font-bold drop-shadow-lg">
-                    {item.name}
-                  </h2>
-                  <p className="font-thin mt-2 ">{item.description}</p>
-                </div>
-              </div>
-            );
-          })}
-        </Slider>
-      </div>
-      {/* recent Books  */}
-      <section className=" w-11/12 mx-auto mt-8 pb-3">
-        <h3 className=" font-bold text-center text-3xl text-base-400 mb-5">
-          Recent Books
-        </h3>
-        <div className=" grid sm:grid-cols-2 md:grid-cols-3  gap-3 justify-center">
-          {recentBoos?.map((book, i) => {
-            return <BookCard key={i} book={book} />;
-          })}
-        </div>
-      </section>
-      {/* Why Choose  */}
+      <div className="min-h-fit bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 px-4 py-10 flex flex-col items-center">
+        <div className="w-full max-w-7xl rounded-3xl border border-white/20 p-6 md:p-8">
+          <Slider {...settings}>
+            {bannerData.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="outline-none px-2" /* স্লাইডারের স্লাইড গ্যাপের জন্য */
+                >
+                  <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl group">
+                    {/* Image Container */}
+                    <div className="w-full h-96 overflow-hidden">
+                      <img
+                        className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                        src={item.img}
+                        alt={item.name || "Banner"}
+                      />
+                    </div>
 
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-              Why Choose Our Book Shop
+                    {/* Overlay Content */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-black/40 to-black/20 flex flex-col justify-center items-center text-center text-white p-6 transition-all duration-300 group-hover:bg-black/60">
+                      <h2 className="text-4xl md:text-6xl font-extrabold drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] text-white tracking-wide">
+                        {item.name}
+                      </h2>
+                      <p className="font-light text-slate-200 mt-3 max-w-2xl text-sm md:text-base drop-shadow-md">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </Slider>
+        </div>
+      </div>
+      {/* Recent Books */}
+      <section className="relative py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+        {/* Background Blur */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-600/10  rounded-full"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <span className="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium mb-4">
+              📚 Latest Collection
+            </span>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-white">
+              Recent Books
             </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-              We are committed to providing quality books, affordable prices,
-              and a smooth shopping experience for every reader.
+
+            <p className="mt-4 max-w-2xl mx-auto text-gray-400 leading-7">
+              Discover our newest arrivals featuring programming, technology,
+              academic and best-selling books carefully selected for every
+              reader.
             </p>
           </div>
 
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center">
-              <div className="flex flex-col items-center text-center gap-3">
-                <IoBookSharp className="text-5xl text-indigo-600" />
-                <h3 className="text-xl font-semibold text-gray-800">
-                  Wide Book Collection
-                </h3>
+          {/* Books Grid */}
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {recentBoos?.map((book, i) => (
+              <div
+                key={i}
+                className="group transition duration-500 hover:-translate-y-2"
+              >
+                <BookCard book={book} />
+              </div>
+            ))}
+          </div>
+
+          {/* Button */}
+          <div className="flex justify-center mt-14">
+            <Link
+              to="/books"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
+            >
+              View All Books
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 overflow-hidden">
+        {/* Background Blur */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500/10  rounded-full"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium">
+              ⭐ Why Choose Us
+            </span>
+
+            <h2 className="mt-5 text-4xl md:text-5xl font-bold text-white">
+              Why Choose Our Book Shop
+            </h2>
+
+            <p className="mt-5 max-w-2xl mx-auto text-gray-400 leading-8">
+              We provide premium quality books, affordable prices and a seamless
+              shopping experience designed for every passionate reader.
+            </p>
+          </div>
+
+          {/* Cards */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Card 1 */}
+            <div className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-cyan-500/50 hover:bg-white/10">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-500/20 group-hover:scale-110 transition">
+                <IoBookSharp className="text-5xl text-cyan-400" />
               </div>
 
-              <p className="text-gray-600 text-sm">
-                Explore a vast collection of programming, academic, and
-                best-selling books from trusted publishers.
+              <h3 className="mt-6 text-xl font-bold text-white">
+                Wide Collection
+              </h3>
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Discover thousands of programming, academic and best-selling
+                books from trusted publishers.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center">
-              <div className="flex flex-col items-center text-center gap-3">
-                <MdMonetizationOn className="text-5xl text-green-600" />
-                <h3 className="text-xl font-semibold text-gray-800">
-                  Affordable Pricing
-                </h3>
+            {/* Card 2 */}
+            <div className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-green-500/50 hover:bg-white/10">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-green-500/10 border border-green-500/20 group-hover:scale-110 transition">
+                <MdMonetizationOn className="text-5xl text-green-400" />
               </div>
-              <p className="text-gray-600 text-sm">
-                Enjoy competitive prices with regular discounts and special
-                offers on popular titles.
+
+              <h3 className="mt-6 text-xl font-bold text-white">
+                Best Pricing
+              </h3>
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Get competitive prices with exclusive discounts and amazing
+                seasonal offers.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="flex flex-col items-center text-center gap-3">
-                <MdOutlineSecurity className="text-5xl text-blue-600" />
-                <h3 className="text-xl font-semibold text-gray-800">
-                  Easy & Secure Ordering
-                </h3>
+            {/* Card 3 */}
+            <div className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-blue-500/50 hover:bg-white/10">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/20 group-hover:scale-110 transition">
+                <MdOutlineSecurity className="text-5xl text-blue-400" />
               </div>
-              <p className="text-gray-600 text-sm">
-                Simple ordering process with secure checkout, ensuring a smooth
-                and safe shopping experience.
+
+              <h3 className="mt-6 text-xl font-bold text-white">
+                Secure Shopping
+              </h3>
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Fast checkout, secure payments and reliable order management for
+                complete peace of mind.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition text-center">
-              <div className="flex flex-col items-center text-center gap-3">
-                <FaStar className="text-5xl text-yellow-500" />
-                <h3 className="text-xl font-semibold text-gray-800">
-                  Trusted by Readers
-                </h3>
+            {/* Card 4 */}
+            <div className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-yellow-500/50 hover:bg-white/10">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-yellow-500/10 border border-yellow-500/20 group-hover:scale-110 transition">
+                <FaStar className="text-5xl text-yellow-400" />
               </div>
-              <p className="text-gray-600 text-sm">
-                Rated highly by readers for quality service, fast delivery, and
-                excellent customer support.
+
+              <h3 className="mt-6 text-xl font-bold text-white">
+                Trusted by Readers
+              </h3>
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Thousands of happy readers trust us for quality books, quick
+                delivery and excellent support.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA  */}
-      <section className=" text-base-400 py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Text Content */}
-            <div className="  max-w-xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Discover Your Next Favorite Book
+      {/* CTA Section */}
+      <section className="relative py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-cyan-500/10  rounded-full"></div>
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-blue-500/10  rounded-full"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div>
+              <span className="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium">
+                📚 Discover Knowledge
+              </span>
+
+              <h2 className="mt-6 text-4xl md:text-5xl font-bold text-white leading-tight">
+                Discover Your Next
+                <span className="block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  Favorite Book
+                </span>
               </h2>
-              <p className="  mb-6">
-                Explore a wide range of programming, academic, and best-selling
-                books at unbeatable prices. Start your learning journey today
-                with our trusted book collection.
+
+              <p className="mt-6 text-gray-400 text-lg leading-8 max-w-xl">
+                Explore thousands of programming, academic, and best-selling
+                books. Learn faster, improve your skills, and grow your career
+                with our trusted collection.
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4 mt-10">
                 <Link
                   to="/books"
-                  className=" border  font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition"
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
                 >
                   Browse Books
                 </Link>
+
                 <Link
                   to="/books"
-                  className="border border-gray-300  px-6 py-3 rounded-lg hover:bg-white hover:text-indigo-600 transition"
+                  className="px-8 py-3 rounded-xl border border-white/20 bg-white/5 backdrop-blur-lg text-white hover:bg-white/10 transition"
                 >
                   Shop Now
                 </Link>
               </div>
             </div>
 
-            {/* Image / Card */}
-            <div className="bg-white rounded-xl shadow-lg p-6 w-full md:w-96">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Best Seller of the Month
-              </h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Upgrade your skills with top-rated programming books recommended
-                by industry experts.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-indigo-600 font-bold text-lg">
-                  From ৳499
+            {/* Right Card */}
+            <div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl hover:border-cyan-500/40 transition-all duration-500">
+                <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-300 text-sm">
+                  ⭐ Bestseller
                 </span>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
-                  View Details
-                </button>
+
+                <h3 className="mt-5 text-3xl font-bold text-white">
+                  Best Seller of the Month
+                </h3>
+
+                <p className="mt-4 text-gray-400 leading-7">
+                  Upgrade your programming journey with our most popular books
+                  recommended by industry professionals and experienced
+                  developers.
+                </p>
+
+                <div className="mt-8 flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-400 text-sm">Starting From</p>
+
+                    <h4 className="text-3xl font-bold text-cyan-400">৳499</h4>
+                  </div>
+
+                  <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:scale-105 transition">
+                    View Details
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* how its work section  */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* How It Works */}
+      <section className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute -top-24 left-0 w-80 h-80 bg-cyan-500/10 blur-[140px] rounded-full"></div>
+        <div className="absolute -bottom-24 right-0 w-80 h-80 bg-blue-500/10  rounded-full"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium">
+              🚀 Simple Process
+            </span>
+
+            <h2 className="mt-5 text-4xl md:text-5xl font-bold text-white">
               How It Works
             </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-              Buying books from our shop is quick, easy, and secure. Follow
-              these simple steps to get started.
+
+            <p className="mt-5 max-w-2xl mx-auto text-gray-400 leading-8">
+              Buying books has never been easier. Just follow these four simple
+              steps and enjoy a seamless shopping experience.
             </p>
           </div>
 
           {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4 text-gray-500 flex justify-center">
-                <FaBook />
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Step 1 */}
+            <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-cyan-500/50">
+              <div className="absolute top-5 right-5 h-10 w-10 rounded-full bg-cyan-500 text-white font-bold flex items-center justify-center">
+                1
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-500/20 group-hover:scale-110 transition">
+                <FaBook className="text-5xl text-cyan-400" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-bold text-white">
                 Browse Books
               </h3>
-              <p className="text-gray-500 text-sm">
-                Explore our wide collection of books by category, author, or
-                popularity.
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Explore our huge collection by category, author, or bestseller
+                and discover your next favorite book.
               </p>
             </div>
 
-            <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4  text-gray-500 flex justify-center">
-                <FaCartShopping />
+            {/* Step 2 */}
+            <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-green-500/50">
+              <div className="absolute top-5 right-5 h-10 w-10 rounded-full bg-green-500 text-white font-bold flex items-center justify-center">
+                2
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Add to Cart
+
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-green-500/10 border border-green-500/20 group-hover:scale-110 transition">
+                <FaCartShopping className="text-5xl text-green-400" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-bold text-white">Add to Cart</h3>
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Select the books you love and add them to your shopping cart
+                with a single click.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-blue-500/50">
+              <div className="absolute top-5 right-5 h-10 w-10 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center">
+                3
+              </div>
+
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/20 group-hover:scale-110 transition">
+                <FaMoneyCheckAlt className="text-5xl text-blue-400" />
+              </div>
+
+              <h3 className="mt-6 text-xl font-bold text-white">
+                Secure Checkout
               </h3>
-              <p className="text-gray-600 text-sm">
-                Select your favorite books and add them to your shopping cart in
-                just one click.
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Complete your purchase with our secure payment process in just a
+                few seconds.
               </p>
             </div>
 
-            <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4  text-gray-500 flex justify-center">
-                <FaMoneyCheckAlt />
+            {/* Step 4 */}
+            <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:border-yellow-500/50">
+              <div className="absolute top-5 right-5 h-10 w-10 rounded-full bg-yellow-500 text-white font-bold flex items-center justify-center">
+                4
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                Place Order
-              </h3>
-              <p className="text-gray-600 text-sm">
-                Complete your order securely with an easy and fast checkout
-                process.
-              </p>
-            </div>
 
-            <div className="text-center p-6 rounded-xl shadow hover:shadow-lg transition">
-              <div className="text-4xl mb-4 text-gray-500 flex justify-center">
-                <CiDeliveryTruck />
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-yellow-500/10 border border-yellow-500/20 group-hover:scale-110 transition">
+                <CiDeliveryTruck className="text-5xl text-yellow-400" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+
+              <h3 className="mt-6 text-xl font-bold text-white">
                 Fast Delivery
               </h3>
-              <p className="text-gray-600 text-sm">
-                Get your books delivered quickly and safely to your doorstep.
+
+              <p className="mt-3 text-gray-400 text-sm leading-7">
+                Sit back and relax while we deliver your books quickly and
+                safely to your doorstep.
               </p>
             </div>
           </div>

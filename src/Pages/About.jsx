@@ -11,90 +11,122 @@ const About = () => {
     document.title = "About | My Book Shop";
   }, []);
   return (
-    <div className="max-w-7xl mx-auto px-6 py-14">
-      {/* Page Header */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={fadeUp}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-4xl md:text-5xl font-bold mb-5 text-base-400">
-          About Online Book Shop
-        </h1>
-        <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Online Book Shop is a modern web application designed to make
-          browsing, managing, and discovering books effortless for students,
-          teachers, and book lovers. Experience a clean, fast, and user-friendly
-          platform.
-        </p>
-      </motion.div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-cyan-500/10 blur-[150px] rounded-full"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 blur-[150px] rounded-full"></div>
 
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {[
-          {
-            title: "Browse Books",
-            text: "Explore a wide range of books with detailed information including title, author, price, and descriptions.",
-          },
-          {
-            title: "Add New Books",
-            text: "Authorized users can add books easily with pricing, images, and real-time updates to the collection.",
-          },
-          {
-            title: "Update & Delete Books",
-            text: "Keep inventory accurate by updating or removing books whenever needed.",
-          },
-          {
-            title: "Responsive & User-Friendly",
-            text: "Enjoy a seamless experience across desktop and mobile devices with intuitive navigation.",
-          },
-          {
-            title: "Book Categories",
-            text: "Browse books by categories such as Fiction, Academic, Science, and more for easy discovery.",
-          },
-          {
-            title: "Learning & Exploration",
-            text: "Perfect for beginners to understand React and CRUD operations with real-world examples.",
-          },
-        ].map((item, index) => (
-          <motion.section
-            key={index}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.03 }}
-            className="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition"
-          >
-            <h2 className="text-2xl font-semibold mb-3 text-gray-800">
-              {item.title}
-            </h2>
-            <p className="text-gray-600 leading-relaxed">{item.text}</p>
-          </motion.section>
-        ))}
-      </div>
+      <div className="relative max-w-7xl mx-auto px-6 py-20">
+        {/* Hero */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <span className="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-sm font-medium">
+            📖 About Us
+          </span>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mt-16"
-      >
-        <section className=" text-base-400  rounded-2xl p-10 text-center shadow-xl">
-          <h3 className="text-3xl font-semibold mb-4">
-            Why Choose Online Book Shop?
-          </h3>
-          <p className="max-w-3xl mx-auto leading-relaxed  text-base-400">
-            Whether you are a student, teacher, or book enthusiast, Online Book
-            Shop gives you a powerful, responsive, and easy-to-use platform to
-            explore and manage books with confidence.
+          <h1 className="mt-6 text-5xl md:text-6xl font-bold text-white">
+            About
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              {" "}
+              Online Book Shop
+            </span>
+          </h1>
+
+          <p className="mt-6 max-w-3xl mx-auto text-lg text-gray-400 leading-8">
+            Online Book Shop is a modern platform designed for students,
+            professionals, and book lovers. Discover, manage, and explore
+            thousands of books with a fast, secure, and beautiful experience.
           </p>
-        </section>
-      </motion.div>
+        </motion.div>
+
+        {/* Features */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              icon: "📚",
+              title: "Browse Books",
+              text: "Explore thousands of books with detailed information, pricing, and descriptions.",
+            },
+            {
+              icon: "➕",
+              title: "Add Books",
+              text: "Admins can easily add books with images, prices, and category details.",
+            },
+            {
+              icon: "✏️",
+              title: "Manage Books",
+              text: "Update or remove books anytime to keep your collection accurate.",
+            },
+            {
+              icon: "📱",
+              title: "Responsive Design",
+              text: "A smooth experience across mobile, tablet, and desktop devices.",
+            },
+            {
+              icon: "🏷️",
+              title: "Categories",
+              text: "Find books quickly using categories like Fiction, Academic, Science, and more.",
+            },
+            {
+              icon: "🚀",
+              title: "Fast & Secure",
+              text: "Built with modern technologies to ensure speed, security, and reliability.",
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 transition-all duration-500 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10"
+            >
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-3xl">
+                {item.icon}
+              </div>
+
+              <h2 className="mt-6 text-2xl font-bold text-white">
+                {item.title}
+              </h2>
+
+              <p className="mt-4 text-gray-400 leading-7">{item.text}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-24"
+        >
+          <div className="rounded-3xl border border-white/10 bg-gradient-to-r from-cyan-500/10 via-slate-900 to-blue-500/10 backdrop-blur-xl p-12 text-center shadow-2xl">
+            <h3 className="text-4xl font-bold text-white">
+              Why Choose Online Book Shop?
+            </h3>
+
+            <p className="mt-6 max-w-3xl mx-auto text-gray-400 leading-8 text-lg">
+              Whether you're a student, teacher, or passionate reader, our
+              platform provides an intuitive experience with modern design,
+              secure book management, and a growing collection to support your
+              learning journey.
+            </p>
+
+            <button className="mt-8 px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:scale-105 transition duration-300">
+              Explore Books
+            </button>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 };
